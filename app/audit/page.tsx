@@ -21,6 +21,11 @@ export default function AuditWizardPage() {
   const [exam, setExam] = React.useState<string>("");
   const [fullName, setFullName] = React.useState("");
   const [mobile, setMobile] = React.useState("");
+  const [nameError, setNameError] = React.useState("");
+  const [mobileError, setMobileError] = React.useState("");
+  const [nameTouched, setNameTouched] = React.useState(false);
+  const [mobileTouched, setMobileTouched] = React.useState(false);
+  const [isSubmittingDetails, setIsSubmittingDetails] = React.useState(false);
   const [currentIdx, setCurrentIdx] = React.useState(0);
   const [answers, setAnswers] = React.useState<Record<string, string>>({});
   const [loaderTextIdx, setLoaderTextIdx] = React.useState(0);
@@ -35,6 +40,165 @@ export default function AuditWizardPage() {
 
   const currentQuestion = questions[currentIdx];
   const totalQuestions = questions.length;
+
+  const validateName = (nameVal: string) => {
+    const trimmed = nameVal.trim();
+    if (trimmed.length < 2 || trimmed.length > 50) {
+      setNameError("Please enter a valid name.");
+      return false;
+    }
+    
+    // Reject fake names (case-insensitive)
+    const fakeNames = ["test", "testing", "demo", "sample", "admin", "student", "abc", "xyz", "asdf", "qwerty"];
+    if (fakeNames.includes(trimmed.toLowerCase())) {
+      setNameError("Please enter a valid name.");
+      return false;
+    }
+    
+    // Reject single repeated characters (ignoring spaces)
+    const normalized = trimmed.replace(/\s/g, "");
+    if (/^(.)\1+$/.test(normalized)) {
+      setNameError("Please enter a valid name.");
+      return false;
+    }
+
+    // Reject names shorter than 4 characters unless they contain at least two words
+    const words = trimmed.split(/\s+/).filter(Boolean);
+    if (trimmed.length < 4 && words.length < 2) {
+      setNameError("Please enter a valid name.");
+      return false;
+    }
+
+    // Each word must contain at least 2 alphabetic characters
+    const allWordsAtLeastTwoChars = words.every(word => word.replace(/[^A-Za-z]/g, "").length >= 2);
+    if (!allWordsAtLeastTwoChars) {
+      setNameError("Please enter a valid name.");
+      return false;
+    }
+
+    // Allow only alphabets, spaces, and periods
+    if (!/^[A-Za-z\s.]+$/.test(trimmed)) {
+      setNameError("Please enter a valid name.");
+      return false;
+    }
+
+    setNameError("");
+    return true;
+  };
+
+  const validateMobile = (mobileVal: string) => {
+    const cleaned = mobileVal.replace(/\D/g, "");
+    if (cleaned.length !== 10) {
+      setMobileError("Please enter a valid mobile number.");
+      return false;
+    }
+    if (!/^[6-9]/.test(cleaned)) {
+      setMobileError("Please enter a valid mobile number.");
+      return false;
+    }
+
+    // Reject numbers containing 8 or more identical digits
+    const counts: Record<string, number> = {};
+    for (const char of cleaned) {
+      counts[char] = (counts[char] || 0) + 1;
+    }
+    const hasEightIdentical = Object.values(counts).some((count) => count >= 8);
+    if (hasEightIdentical) {
+      setMobileError("Please enter a valid mobile number.");
+      return false;
+    }
+
+    // Reject numbers where first 6 digits are identical
+    if (/^(\d)\1{5}/.test(cleaned)) {
+      setMobileError("Please enter a valid mobile number.");
+      return false;
+    }
+
+    // Reject numbers containing 7+ repeating digits in sequence
+    if (/(\d)\1{6}/.test(cleaned)) {
+      setMobileError("Please enter a valid mobile number.");
+      return false;
+    }
+
+    // Reject obvious ascending/descending patterns of length 6 or more
+    const asc = "01234567890123456789";
+    const desc = "98765432109876543210";
+    let isSequential = false;
+    for (let i = 0; i <= cleaned.length - 6; i++) {
+      const sub = cleaned.substring(i, i + 6);
+      if (asc.includes(sub) || desc.includes(sub)) {
+        isSequential = true;
+        break;
+      }
+    }
+    if (isSequential) {
+      setMobileError("Please enter a valid mobile number.");
+      return false;
+    }
+
+    // Reject repeated dummy numbers
+    const dummyList = [
+      "0000000000", "1111111111", "2222222222", "3333333333",
+      "4444444444", "5555555555", "6666666666", "7777777777",
+      "8888888888", "9999999999", "1234567890", "0123456789"
+    ];
+    if (dummyList.includes(cleaned)) {
+      setMobileError("Please enter a valid mobile number.");
+      return false;
+    }
+
+    setMobileError("");
+    return true;
+  };
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setFullName(val);
+    setNameTouched(true);
+    validateName(val);
+  };
+
+  const handleMobileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    // Automatically strip spaces, dashes, brackets, and non-numeric characters
+    const cleaned = val.replace(/[\s\-()]/g, "").replace(/\D/g, "").slice(0, 10);
+    setMobile(cleaned);
+    setMobileTouched(true);
+    validateMobile(cleaned);
+  };
+
+  const handleNameBlur = () => {
+    const trimmed = fullName.trim();
+    setFullName(trimmed);
+    setNameTouched(true);
+    validateName(trimmed);
+  };
+
+  const handleMobileBlur = () => {
+    setMobileTouched(true);
+    validateMobile(mobile);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSubmitDetails();
+    }
+  };
+
+  const handleSubmitDetails = () => {
+    setNameTouched(true);
+    setMobileTouched(true);
+
+    const isNameValid = validateName(fullName);
+    const isMobileValid = validateMobile(mobile);
+
+    if (!isNameValid || !isMobileValid) return;
+    if (isSubmittingDetails) return;
+
+    setIsSubmittingDetails(true);
+    setStep("loader");
+  };
 
   const handleSelectOption = (optionLabel: string) => {
     if (!currentQuestion) return;
@@ -61,9 +225,58 @@ export default function AuditWizardPage() {
   };
 
   const isDetailsValid = React.useMemo(() => {
-    const isNameValid = fullName.trim().length >= 2;
-    const isMobileValid = /^\d{10}$/.test(mobile.trim());
-    return isNameValid && isMobileValid;
+    const trimmedName = fullName.trim();
+    if (trimmedName.length < 2 || trimmedName.length > 50) return false;
+    
+    const fakeNames = ["test", "testing", "demo", "sample", "admin", "student", "abc", "xyz", "asdf", "qwerty"];
+    if (fakeNames.includes(trimmedName.toLowerCase())) return false;
+    
+    const normalized = trimmedName.replace(/\s/g, "");
+    if (/^(.)\1+$/.test(normalized)) return false;
+
+    const words = trimmedName.split(/\s+/).filter(Boolean);
+    if (trimmedName.length < 4 && words.length < 2) return false;
+
+    const allWordsAtLeastTwoChars = words.every(word => word.replace(/[^A-Za-z]/g, "").length >= 2);
+    if (!allWordsAtLeastTwoChars) return false;
+
+    if (!/^[A-Za-z\s.]+$/.test(trimmedName)) return false;
+
+    const cleanedMobile = mobile.replace(/\D/g, "");
+    if (cleanedMobile.length !== 10) return false;
+    if (!/^[6-9]/.test(cleanedMobile)) return false;
+
+    const counts: Record<string, number> = {};
+    for (const char of cleanedMobile) {
+      counts[char] = (counts[char] || 0) + 1;
+    }
+    const hasEightIdentical = Object.values(counts).some((count) => count >= 8);
+    if (hasEightIdentical) return false;
+
+    if (/^(\d)\1{5}/.test(cleanedMobile)) return false;
+
+    if (/(\d)\1{6}/.test(cleanedMobile)) return false;
+
+    const asc = "01234567890123456789";
+    const desc = "98765432109876543210";
+    let isSequential = false;
+    for (let i = 0; i <= cleanedMobile.length - 6; i++) {
+      const sub = cleanedMobile.substring(i, i + 6);
+      if (asc.includes(sub) || desc.includes(sub)) {
+        isSequential = true;
+        break;
+      }
+    }
+    if (isSequential) return false;
+
+    const dummyList = [
+      "0000000000", "1111111111", "2222222222", "3333333333",
+      "4444444444", "5555555555", "6666666666", "7777777777",
+      "8888888888", "9999999999", "1234567890", "0123456789"
+    ];
+    if (dummyList.includes(cleanedMobile)) return false;
+
+    return true;
   }, [fullName, mobile]);
 
   const handleQuizNext = () => {
@@ -73,7 +286,7 @@ export default function AuditWizardPage() {
       setStep("details");
     }
   };
-
+// Logic implementation remains unchanged below for the standard report generation hook
   React.useEffect(() => {
     if (step !== "loader") return;
 
@@ -337,15 +550,20 @@ export default function AuditWizardPage() {
                   required
                   placeholder="Enter student full name"
                   value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
+                  onChange={handleNameChange}
+                  onBlur={handleNameBlur}
+                  onKeyDown={handleKeyDown}
                   className={cn(
                     "w-full bg-[#111111]/80 border text-white pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:ring-1 transition-all font-sans text-sm placeholder:text-zinc-600 min-h-[56px]",
-                    fullName.trim().length >= 2 || fullName.trim().length === 0
-                      ? "border-border focus:border-gold/50 focus:ring-gold/50"
-                      : "border-red-500 focus:border-red-500 focus:ring-red-500"
+                    (nameTouched && nameError)
+                      ? "border-red-500 focus:border-red-500 focus:ring-red-500"
+                      : "border-border focus:border-gold/50 focus:ring-gold/50"
                   )}
                 />
               </div>
+              {nameTouched && nameError && (
+                <p className="text-red-500 text-xs font-mono mt-1 pl-2">{nameError}</p>
+              )}
             </div>
 
             <div className="space-y-2 text-left">
@@ -360,23 +578,28 @@ export default function AuditWizardPage() {
                   maxLength={10}
                   placeholder="e.g. 9876543210"
                   value={mobile}
-                  onChange={(e) => setMobile(e.target.value.replace(/\D/g, ""))}
+                  onChange={handleMobileChange}
+                  onBlur={handleMobileBlur}
+                  onKeyDown={handleKeyDown}
                   className={cn(
                     "w-full bg-[#111111]/80 border text-white pl-12 pr-4 py-4 rounded-xl focus:outline-none focus:ring-1 transition-all font-sans text-sm placeholder:text-zinc-600 min-h-[56px]",
-                    /^\d{10}$/.test(mobile.trim()) || mobile.trim().length === 0
-                      ? "border-border focus:border-gold/50 focus:ring-gold/50"
-                      : "border-red-500 focus:border-red-500 focus:ring-red-500"
+                    (mobileTouched && mobileError)
+                      ? "border-red-500 focus:border-red-500 focus:ring-red-500"
+                      : "border-border focus:border-gold/50 focus:ring-gold/50"
                   )}
                 />
               </div>
+              {mobileTouched && mobileError && (
+                <p className="text-red-500 text-xs font-mono mt-1 pl-2">{mobileError}</p>
+              )}
             </div>
           </CardContent>
 
           <CardFooter className="pt-6 border-t border-border/40 mt-6 flex justify-end">
             <Button
               type="button"
-              disabled={!isDetailsValid}
-              onClick={() => setStep("loader")}
+              disabled={!isDetailsValid || isSubmittingDetails}
+              onClick={handleSubmitDetails}
               variant="primary"
               size="lg"
               className="w-full sm:w-auto px-10 flex items-center justify-center gap-2 group min-h-[56px]"
