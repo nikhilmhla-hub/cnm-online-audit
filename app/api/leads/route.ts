@@ -99,7 +99,8 @@ export async function POST(request: Request) {
           overall_score,
           archetype,
           bottleneck,
-          status
+          status,
+          source: "Social Media"
         })
         .eq("id", leadId);
 
@@ -116,7 +117,8 @@ export async function POST(request: Request) {
             overall_score,
             archetype,
             bottleneck,
-            status
+            status,
+            source: "Social Media"
           })
           .eq("id", leadId);
         updateError = retryError;
@@ -171,7 +173,8 @@ export async function POST(request: Request) {
           archetype,
           bottleneck,
           queue_number: queueNumber,
-          status
+          status,
+          source: "Social Media"
         })
         .select();
 
@@ -198,7 +201,8 @@ export async function POST(request: Request) {
               overall_score,
               archetype,
               bottleneck,
-              status
+              status,
+              source: "Social Media"
             })
             .eq("id", leadId)
             .select();
@@ -223,7 +227,8 @@ export async function POST(request: Request) {
             archetype,
             bottleneck,
             queue_number: queueNumber,
-            status
+            status,
+            source: "Social Media"
           })
           .select();
         insertedLeads = retryData;
@@ -257,8 +262,7 @@ export async function POST(request: Request) {
         console.log("[Leads API]: Sending backup payload to Google Sheets webhook...");
         const backupPayload = {
           ...data,
-          phone: parsedPhone,
-          queueNumber
+          phone: parsedPhone
         };
         const sheetResponse = await fetch(webhookUrl, {
           method: "POST",

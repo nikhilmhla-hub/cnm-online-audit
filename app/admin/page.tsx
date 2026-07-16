@@ -669,6 +669,7 @@ export default function AdminDashboardPage() {
               <thead>
                 <tr className="bg-zinc-900/60 text-zinc-400 uppercase font-mono text-[9px] border-b border-border/40">
                   <th className="py-4 px-4">Student</th>
+                  <th className="py-4 px-4">Source</th>
                   <th className="py-4 px-4">Track</th>
                   <th className="py-4 px-4">Score / Student Type</th>
                   <th className="py-4 px-4">Main Problem</th>
@@ -687,6 +688,11 @@ export default function AdminDashboardPage() {
                         <td className="py-4 px-4">
                           <div className="font-bold text-white text-sm">{row.Name}</div>
                           <div className="text-[10px] text-zinc-500 font-mono mt-0.5">{cleanPhone}</div>
+                        </td>
+                        <td className="py-4 px-4 font-mono">
+                          <span className="px-2 py-0.5 rounded bg-zinc-800 border border-zinc-700/60 text-zinc-400 text-[10px] font-bold">
+                            {row.Source || "N/A"}
+                          </span>
                         </td>
                         <td className="py-4 px-4 font-mono">
                           <div>{row.Class}</div>
@@ -737,7 +743,7 @@ export default function AdminDashboardPage() {
                   })
                 ) : (
                   <tr>
-                    <td colSpan={6} className="py-12 text-center text-zinc-500 font-mono">
+                    <td colSpan={7} className="py-12 text-center text-zinc-500 font-mono">
                       {isLoading ? "Syncing database leads..." : "No leads found."}
                     </td>
                   </tr>

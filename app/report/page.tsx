@@ -48,7 +48,7 @@ export default function ReportPage() {
       const { grade } = getGradeDetails(sessionData.overallScore);
       const payload = {
         submissionId: sessionData.submissionId,
-        source: "Gopalpura Kiosk",
+        source: "Social Media",
         name: sessionData.student.name,
         phone: sessionData.student.phone,
         class: sessionData.student.class,
@@ -138,7 +138,7 @@ export default function ReportPage() {
         primaryBottleneck: session.primaryBottleneck ? session.primaryBottleneck.category : "None",
         potentialGain: session.potentialImprovement.gain,
         bookingStatus: "Waiting",
-        source: "Gopalpura Kiosk"
+        source: "Social Media"
       };
 
       const response = await fetch("/api/bookings", {
@@ -224,7 +224,7 @@ export default function ReportPage() {
       });
       doc.setTextColor(140, 140, 140);
       doc.setFontSize(8.5);
-      doc.text(`Generated On: ${genDate}  |  Kiosk Source: Gopalpura Kiosk`, margin, 34);
+      doc.text(`Generated On: ${genDate}  |  Source: Social Media`, margin, 34);
       
       // 2. Student Info Card
       doc.setDrawColor(220, 220, 220);
@@ -730,8 +730,8 @@ export default function ReportPage() {
             
             <div className="pt-2">
               <button
-                onClick={handleBookSession}
-                disabled={isBooking || session.sessionStatus === "Booked"}
+                onClick={() => router.push("/booking")}
+                disabled={session.sessionStatus === "Booked"}
                 className={cn(
                   "w-full sm:w-auto px-10 py-4 font-bold text-sm rounded-xl tracking-wide uppercase transition-all duration-300 min-h-[56px] flex items-center justify-center gap-2 cursor-pointer shadow-[0_4px_20px_rgba(59,130,246,0.15)]",
                   session.sessionStatus === "Booked"
@@ -739,12 +739,7 @@ export default function ReportPage() {
                     : "bg-blue-600 hover:bg-blue-700 text-white border border-blue-500 hover:border-blue-600 hover:shadow-[0_4px_25px_rgba(59,130,246,0.25)]"
                 )}
               >
-                {isBooking ? (
-                  <>
-                    <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
-                    Reserving Strategy Session...
-                  </>
-                ) : session.sessionStatus === "Booked" ? (
+                {session.sessionStatus === "Booked" ? (
                   <>Session Reserved ✓</>
                 ) : (
                   <>Get My Study Plan</>

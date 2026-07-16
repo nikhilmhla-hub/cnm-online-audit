@@ -273,7 +273,8 @@ export async function POST(request: Request) {
         .update({
           booking_id: booking_id,
           queue_number,
-          whatsapp_status: whatsappStatus
+          whatsapp_status: whatsappStatus,
+          source: "Social Media"
         })
         .eq("id", existingBookingRowId)
         .select();
@@ -287,7 +288,8 @@ export async function POST(request: Request) {
           booking_id,
           lead_id: leadId,
           queue_number,
-          whatsapp_status: whatsappStatus
+          whatsapp_status: whatsappStatus,
+          source: "Social Media"
         })
         .select();
       insertedBooking = inserted;

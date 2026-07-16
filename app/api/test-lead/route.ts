@@ -15,7 +15,8 @@ export async function GET() {
       overallScore: 62,
       archetype: "Rank Builder",
       primaryBottleneck: "Focus",
-      status: "Audit Completed"
+      status: "Audit Completed",
+      source: "Social Media"
     };
 
     const mockRequest = new Request("http://localhost:3000/api/leads", {
