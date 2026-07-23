@@ -1,0 +1,1143 @@
+{
+  "exportFormatVersion": 2,
+  "exportTime": "2026-07-23 12:00:00",
+  "containerVersion": {
+    "path": "accounts/6000000000/containers/80000000/versions/0",
+    "accountId": "6000000000",
+    "containerId": "80000000",
+    "containerVersionId": "0",
+    "container": {
+      "path": "accounts/6000000000/containers/80000000",
+      "accountId": "6000000000",
+      "containerId": "80000000",
+      "name": "CNM Online Audit",
+      "publicId": "GTM-M3FCWDVW",
+      "usageContext": [
+        "WEB"
+      ]
+    },
+    "tag": [
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "tagId": "1",
+        "name": "Google Tag - GA4 Config",
+        "type": "googtag",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "tagId",
+            "value": "G-50580M742R"
+          }
+        ],
+        "firingTriggerId": [
+          "2147483647"
+        ],
+        "tagFiringOption": "ONCE_PER_PAGE"
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "tagId": "2",
+        "name": "Conversion Linker - Google Ads",
+        "type": "gacl",
+        "parameter": [
+          {
+            "type": "BOOLEAN",
+            "key": "enableCrossDomain",
+            "value": "false"
+          }
+        ],
+        "firingTriggerId": [
+          "2147483646"
+        ],
+        "tagFiringOption": "ONCE_PER_PAGE"
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "tagId": "3",
+        "name": "GA4 Event - landing_page_view",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "measurementId",
+            "value": "G-50580M742R"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "landing_page_view"
+          }
+        ],
+        "firingTriggerId": [
+          "101"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "tagId": "4",
+        "name": "GA4 Event - audit_started",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "measurementId",
+            "value": "G-50580M742R"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "audit_started"
+          }
+        ],
+        "firingTriggerId": [
+          "102"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "tagId": "5",
+        "name": "GA4 Event - audit_25_percent",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "measurementId",
+            "value": "G-50580M742R"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "audit_25_percent"
+          }
+        ],
+        "firingTriggerId": [
+          "103"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "tagId": "6",
+        "name": "GA4 Event - audit_50_percent",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "measurementId",
+            "value": "G-50580M742R"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "audit_50_percent"
+          }
+        ],
+        "firingTriggerId": [
+          "104"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "tagId": "7",
+        "name": "GA4 Event - audit_75_percent",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "measurementId",
+            "value": "G-50580M742R"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "audit_75_percent"
+          }
+        ],
+        "firingTriggerId": [
+          "105"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "tagId": "8",
+        "name": "GA4 Event - audit_complete",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "measurementId",
+            "value": "G-50580M742R"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "audit_complete"
+          },
+          {
+            "type": "LIST",
+            "key": "eventParameters",
+            "value": [
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "student_class"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{dlv - student_class}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "exam_focus"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{dlv - exam_focus}}"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "firingTriggerId": [
+          "106"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "tagId": "9",
+        "name": "GA4 Event - report_view",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "measurementId",
+            "value": "G-50580M742R"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "report_view"
+          },
+          {
+            "type": "LIST",
+            "key": "eventParameters",
+            "value": [
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "overall_score"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{dlv - overall_score}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "archetype"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{dlv - archetype}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "primary_bottleneck"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{dlv - primary_bottleneck}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "potential_gain"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{dlv - potential_gain}}"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "firingTriggerId": [
+          "107"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "tagId": "10",
+        "name": "GA4 Event - booking_page_view",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "measurementId",
+            "value": "G-50580M742R"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "booking_page_view"
+          },
+          {
+            "type": "LIST",
+            "key": "eventParameters",
+            "value": [
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "student_class"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{dlv - student_class}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "exam_focus"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{dlv - exam_focus}}"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "firingTriggerId": [
+          "108"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "tagId": "11",
+        "name": "GA4 Event - calendly_open",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "measurementId",
+            "value": "G-50580M742R"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "calendly_open"
+          }
+        ],
+        "firingTriggerId": [
+          "109"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "tagId": "12",
+        "name": "GA4 Event - booking_complete",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "measurementId",
+            "value": "G-50580M742R"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "booking_complete"
+          },
+          {
+            "type": "LIST",
+            "key": "eventParameters",
+            "value": [
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "booking_type"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "Mentorship Strategy Session"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "student_class"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{dlv - student_class}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "exam_focus"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{dlv - exam_focus}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "overall_score"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{dlv - overall_score}}"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "firingTriggerId": [
+          "110"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "tagId": "13",
+        "name": "GA4 Event - queue_confirmation_view",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "measurementId",
+            "value": "G-50580M742R"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "queue_confirmation_view"
+          },
+          {
+            "type": "LIST",
+            "key": "eventParameters",
+            "value": [
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "queue_number"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{dlv - queue_number}}"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "firingTriggerId": [
+          "111"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "tagId": "14",
+        "name": "GA4 Event - thank_you_page_view",
+        "type": "gaawe",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "measurementId",
+            "value": "G-50580M742R"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "eventName",
+            "value": "thank_you_page_view"
+          },
+          {
+            "type": "LIST",
+            "key": "eventParameters",
+            "value": [
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "student_class"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{dlv - student_class}}"
+                  }
+                ]
+              },
+              {
+                "type": "MAP",
+                "map": [
+                  {
+                    "type": "TEMPLATE",
+                    "key": "name",
+                    "value": "exam_focus"
+                  },
+                  {
+                    "type": "TEMPLATE",
+                    "key": "value",
+                    "value": "{{dlv - exam_focus}}"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "firingTriggerId": [
+          "112"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "tagId": "15",
+        "name": "Meta Pixel - Base Script",
+        "type": "html",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "html",
+            "value": "<!-- Meta Pixel Base Code -->\n<script>\n!function(f,b,e,v,n,t,s)\n{if(f.fbq)return;n=f.fbq=f.fbq||function(){n.callMethod?\nn.callMethod.apply(n,arguments):n.queue.push(arguments)};\nif(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';\nn.queue=[];t=b.createElement(e);t.async=!0;\nt.src=v;s=b.getElementsByTagName(e)[0];\ns.parentNode.insertBefore(t,s)}(window, document,'script',\n'https://connect.facebook.net/en_US/fbevents.js');\nif (typeof fbq !== 'undefined') {\n  fbq('init', '{{const - Meta Pixel ID}}');\n  fbq('track', 'PageView');\n}\n</script>\n<noscript>\n  <img height=\"1\" width=\"1\" style=\"display:none\" src=\"https://www.facebook.com/tr?id={{const - Meta Pixel ID}}&ev=PageView&noscript=1\"/>\n</noscript>"
+          }
+        ],
+        "firingTriggerId": [
+          "2147483647"
+        ],
+        "tagFiringOption": "ONCE_PER_PAGE"
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "tagId": "16",
+        "name": "Meta Pixel - Event - Lead (audit_complete)",
+        "type": "html",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "html",
+            "value": "<script>\nif (typeof fbq !== 'undefined') {\n  fbq('track', 'Lead', {\n    content_name: 'Academic Audit Completed',\n    student_class: '{{dlv - student_class}}',\n    exam_focus: '{{dlv - exam_focus}}'\n  });\n}\n</script>"
+          }
+        ],
+        "firingTriggerId": [
+          "106"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "tagId": "17",
+        "name": "Meta Pixel - Event - ViewContent (report_view)",
+        "type": "html",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "html",
+            "value": "<script>\nif (typeof fbq !== 'undefined') {\n  fbq('track', 'ViewContent', {\n    content_name: 'Diagnostic Report',\n    value: parseFloat('{{dlv - overall_score}}') || 0,\n    archetype: '{{dlv - archetype}}',\n    primary_bottleneck: '{{dlv - primary_bottleneck}}'\n  });\n}\n</script>"
+          }
+        ],
+        "firingTriggerId": [
+          "107"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "tagId": "18",
+        "name": "Meta Pixel - Event - CompleteRegistration (booking_complete)",
+        "type": "html",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "html",
+            "value": "<script>\nif (typeof fbq !== 'undefined') {\n  fbq('track', 'CompleteRegistration', {\n    content_name: 'Mentorship Strategy Session',\n    status: 'Scheduled',\n    student_class: '{{dlv - student_class}}',\n    exam_focus: '{{dlv - exam_focus}}'\n  });\n}\n</script>"
+          }
+        ],
+        "firingTriggerId": [
+          "110"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "tagId": "19",
+        "name": "Meta Pixel - Event - InitiateCheckout (calendly_open)",
+        "type": "html",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "html",
+            "value": "<script>\nif (typeof fbq !== 'undefined') {\n  fbq('track', 'InitiateCheckout', {\n    content_name: 'Calendly Mentorship Strategy Widget Opened'\n  });\n}\n</script>"
+          }
+        ],
+        "firingTriggerId": [
+          "109"
+        ],
+        "tagFiringOption": "ONCE_PER_EVENT"
+      }
+    ],
+    "trigger": [
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "triggerId": "101",
+        "name": "Event - landing_page_view",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "landing_page_view"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "triggerId": "102",
+        "name": "Event - audit_started",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "audit_started"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "triggerId": "103",
+        "name": "Event - audit_25_percent",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "audit_25_percent"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "triggerId": "104",
+        "name": "Event - audit_50_percent",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "audit_50_percent"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "triggerId": "105",
+        "name": "Event - audit_75_percent",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "audit_75_percent"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "triggerId": "106",
+        "name": "Event - audit_complete",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "audit_complete"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "triggerId": "107",
+        "name": "Event - report_view",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "report_view"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "triggerId": "108",
+        "name": "Event - booking_page_view",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "booking_page_view"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "triggerId": "109",
+        "name": "Event - calendly_open",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "calendly_open"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "triggerId": "110",
+        "name": "Event - booking_complete",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "booking_complete"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "triggerId": "111",
+        "name": "Event - queue_confirmation_view",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "queue_confirmation_view"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "triggerId": "112",
+        "name": "Event - thank_you_page_view",
+        "type": "CUSTOM_EVENT",
+        "customEventFilter": [
+          {
+            "type": "EQUALS",
+            "parameter": [
+              {
+                "type": "TEMPLATE",
+                "key": "arg0",
+                "value": "{{_event}}"
+              },
+              {
+                "type": "TEMPLATE",
+                "key": "arg1",
+                "value": "thank_you_page_view"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "variable": [
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "variableId": "1",
+        "name": "dlv - student_class",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "student_class"
+          }
+        ]
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "variableId": "2",
+        "name": "dlv - exam_focus",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "exam_focus"
+          }
+        ]
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "variableId": "3",
+        "name": "dlv - overall_score",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "overall_score"
+          }
+        ]
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "variableId": "4",
+        "name": "dlv - archetype",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "archetype"
+          }
+        ]
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "variableId": "5",
+        "name": "dlv - primary_bottleneck",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "primary_bottleneck"
+          }
+        ]
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "variableId": "6",
+        "name": "dlv - potential_gain",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "potential_gain"
+          }
+        ]
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "variableId": "7",
+        "name": "dlv - queue_number",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "queue_number"
+          }
+        ]
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "variableId": "8",
+        "name": "const - Meta Pixel ID",
+        "type": "c",
+        "parameter": [
+          {
+            "type": "TEMPLATE",
+            "key": "value",
+            "value": "REPLACE_WITH_YOUR_META_PIXEL_ID"
+          }
+        ]
+      },
+      {
+        "accountId": "6000000000",
+        "containerId": "80000000",
+        "variableId": "9",
+        "name": "dlv - booking_type",
+        "type": "v",
+        "parameter": [
+          {
+            "type": "INTEGER",
+            "key": "dataLayerVersion",
+            "value": "2"
+          },
+          {
+            "type": "TEMPLATE",
+            "key": "name",
+            "value": "booking_type"
+          }
+        ]
+      }
+    ]
+  }
+}
