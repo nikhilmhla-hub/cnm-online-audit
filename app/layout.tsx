@@ -29,9 +29,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
     >
-      {process.env.NEXT_PUBLIC_GTM_ID && (
-        <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
-      )}
+      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID || "GTM-M3FCWDVW"} />
       <body className="min-h-screen bg-background text-foreground flex flex-col selection:bg-gold selection:text-black">
         {/* Minimal Header */}
         <header className="border-b border-border bg-[#0B0B0B]/80 backdrop-blur-md sticky top-0 z-50">
