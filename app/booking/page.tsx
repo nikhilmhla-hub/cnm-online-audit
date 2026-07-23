@@ -26,6 +26,19 @@ export default function BookingPage() {
     try {
       const parsed: StudentSession = JSON.parse(savedSessionStr);
       setSession(parsed);
+
+      if (typeof window !== "undefined") {
+        try {
+          (window as any).dataLayer = (window as any).dataLayer || [];
+          (window as any).dataLayer.push({
+            event: "booking_page_view",
+            student_class: parsed.student.class,
+            exam_focus: parsed.student.exam
+          });
+        } catch (e) {
+          console.error("Analytics failure", e);
+        }
+      }
     } catch {
       router.replace("/");
     }
@@ -38,6 +51,21 @@ export default function BookingPage() {
       if (e.data.event && e.data.event === "calendly.event_scheduled") {
         console.log("[Calendly Event]: Booking scheduled successfully!");
         if (!session) return;
+
+        if (typeof window !== "undefined") {
+          try {
+            (window as any).dataLayer = (window as any).dataLayer || [];
+            (window as any).dataLayer.push({
+              event: "booking_complete",
+              booking_type: "Mentorship Strategy Session",
+              student_class: session.student.class,
+              exam_focus: session.student.exam,
+              overall_score: session.overallScore
+            });
+          } catch (err) {
+            console.error("Analytics failure", err);
+          }
+        }
 
         setIsSubmitting(true);
         try {
@@ -94,6 +122,17 @@ export default function BookingPage() {
 
   const handleOpenCalendly = () => {
     if (!session) return;
+
+    if (typeof window !== "undefined") {
+      try {
+        (window as any).dataLayer = (window as any).dataLayer || [];
+        (window as any).dataLayer.push({
+          event: "calendly_open"
+        });
+      } catch (err) {
+        console.error("Analytics failure", err);
+      }
+    }
 
     const baseCalendlyUrl = process.env.NEXT_PUBLIC_CALENDLY_URL || "https://calendly.com/nikhilmhla/topper-blueprint-session?month=2026-07";
     // Append prefill information via URL query parameters

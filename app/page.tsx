@@ -5,6 +5,14 @@ import { Button } from "@/components/ui/button";
 export default function Home() {
   return (
     <div className="w-full max-w-2xl py-16 flex flex-col justify-center items-center gap-12 text-center animate-fade-in">
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({ event: 'landing_page_view' });
+          `,
+        }}
+      />
       {/* Hero Section */}
       <div className="space-y-6">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-gold/20 bg-gold/5 text-gold text-xs font-mono tracking-wide uppercase">

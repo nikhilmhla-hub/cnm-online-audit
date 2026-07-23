@@ -24,6 +24,19 @@ export default function ThankYouPage() {
     try {
       const parsed: StudentSession = JSON.parse(savedSessionStr);
       setSession(parsed);
+
+      if (typeof window !== "undefined") {
+        try {
+          (window as any).dataLayer = (window as any).dataLayer || [];
+          (window as any).dataLayer.push({
+            event: "thank_you_page_view",
+            student_class: parsed.student.class,
+            exam_focus: parsed.student.exam
+          });
+        } catch (e) {
+          console.error("Analytics failure", e);
+        }
+      }
     } catch {
       router.replace("/");
     }

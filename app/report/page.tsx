@@ -350,6 +350,21 @@ export default function ReportPage() {
 
       setSession(parsedSession);
 
+      if (typeof window !== "undefined") {
+        try {
+          (window as any).dataLayer = (window as any).dataLayer || [];
+          (window as any).dataLayer.push({
+            event: "report_view",
+            overall_score: parsedSession.overallScore,
+            archetype: parsedSession.archetype,
+            primary_bottleneck: parsedSession.primaryBottleneck ? parsedSession.primaryBottleneck.category : "None",
+            potential_gain: parsedSession.potentialImprovement.gain
+          });
+        } catch (analyticsError) {
+          console.error("Analytics failure", analyticsError);
+        }
+      }
+
       const submittedIdsStr = localStorage.getItem("cnm_kiosk_submitted_ids") || "[]";
       let submittedIds: string[] = [];
       try {

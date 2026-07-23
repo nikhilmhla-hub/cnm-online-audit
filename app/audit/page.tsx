@@ -280,6 +280,26 @@ export default function AuditWizardPage() {
   }, [fullName, mobile]);
 
   const handleQuizNext = () => {
+    if (typeof window !== "undefined") {
+      try {
+        const answeredCount = currentIdx + 1;
+        const milestone25 = Math.round(totalQuestions * 0.25);
+        const milestone50 = Math.round(totalQuestions * 0.5);
+        const milestone75 = Math.round(totalQuestions * 0.75);
+
+        (window as any).dataLayer = (window as any).dataLayer || [];
+        if (answeredCount === milestone25) {
+          (window as any).dataLayer.push({ event: "audit_25_percent" });
+        } else if (answeredCount === milestone50) {
+          (window as any).dataLayer.push({ event: "audit_50_percent" });
+        } else if (answeredCount === milestone75) {
+          (window as any).dataLayer.push({ event: "audit_75_percent" });
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
     if (currentIdx < totalQuestions - 1) {
       setCurrentIdx((prev) => prev + 1);
     } else {
@@ -287,6 +307,17 @@ export default function AuditWizardPage() {
     }
   };
 // Logic implementation remains unchanged below for the standard report generation hook
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      try {
+        (window as any).dataLayer = (window as any).dataLayer || [];
+        (window as any).dataLayer.push({ event: "audit_started" });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }, []);
+
   React.useEffect(() => {
     if (step !== "loader") return;
 
@@ -312,6 +343,19 @@ export default function AuditWizardPage() {
     } catch (e) {
       console.error("Failed to save audit session", e);
       saveDone = true;
+    }
+
+    if (typeof window !== "undefined") {
+      try {
+        (window as any).dataLayer = (window as any).dataLayer || [];
+        (window as any).dataLayer.push({
+          event: "audit_complete",
+          student_class: studentClass,
+          exam_focus: exam
+        });
+      } catch (analyticsError) {
+        console.error("Analytics failure", analyticsError);
+      }
     }
 
     const timers: NodeJS.Timeout[] = [];

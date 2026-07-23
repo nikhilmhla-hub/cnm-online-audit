@@ -28,6 +28,18 @@ export default function ConfirmationPage() {
       if (parsed.student && parsed.student.name) {
         setStudentName(parsed.student.name);
       }
+
+      if (typeof window !== "undefined") {
+        try {
+          (window as any).dataLayer = (window as any).dataLayer || [];
+          (window as any).dataLayer.push({
+            event: "queue_confirmation_view",
+            queue_number: parsed.queueNumber || ""
+          });
+        } catch (e) {
+          console.error("Analytics failure", e);
+        }
+      }
     } catch {
       router.replace("/");
     }
