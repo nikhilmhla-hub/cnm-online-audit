@@ -7,13 +7,14 @@ import { Check } from "lucide-react";
 export interface RadioCardProps extends React.HTMLAttributes<HTMLButtonElement> {
   selected: boolean;
   title: string;
+  titleHindi?: string;
   description?: string;
   points?: string | number;
   disabled?: boolean;
 }
 
 const RadioCard = React.forwardRef<HTMLButtonElement, RadioCardProps>(
-  ({ selected, title, description, points, disabled = false, className, ...props }, ref) => {
+  ({ selected, title, titleHindi, description, points, disabled = false, className, ...props }, ref) => {
     return (
       <button
         ref={ref}
@@ -54,6 +55,11 @@ const RadioCard = React.forwardRef<HTMLButtonElement, RadioCardProps>(
             >
               {title}
             </h4>
+            {titleHindi && (
+              <p className="text-sm font-normal text-zinc-400 leading-snug mt-1">
+                {titleHindi}
+              </p>
+            )}
             {description && (
               <p className="text-zinc-400 text-sm font-light leading-relaxed">
                 {description}

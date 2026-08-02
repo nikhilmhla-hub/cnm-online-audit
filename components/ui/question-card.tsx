@@ -7,6 +7,7 @@ import { HelpCircle } from "lucide-react";
 
 export interface QuestionCardProps extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
+  titleHindi?: string;
   description?: string;
   helperText?: string;
   variant?: "default" | "glass";
@@ -14,7 +15,7 @@ export interface QuestionCardProps extends React.HTMLAttributes<HTMLDivElement> 
 }
 
 const QuestionCard = React.forwardRef<HTMLDivElement, QuestionCardProps>(
-  ({ title, description, helperText, variant = "default", icon, children, className, ...props }, ref) => {
+  ({ title, titleHindi, description, helperText, variant = "default", icon, children, className, ...props }, ref) => {
     return (
       <Card
         ref={ref}
@@ -30,9 +31,16 @@ const QuestionCard = React.forwardRef<HTMLDivElement, QuestionCardProps>(
             <span className="text-gold shrink-0 mt-0.5">
               {icon || <HelpCircle className="h-6 w-6" />}
             </span>
-            <CardTitle className="text-xl md:text-2xl font-bold leading-relaxed text-white font-sans">
-              {title}
-            </CardTitle>
+            <div className="flex-1">
+              <CardTitle className="text-xl md:text-2xl font-bold leading-relaxed text-white font-sans">
+                {title}
+              </CardTitle>
+              {titleHindi && (
+                <p className="text-base md:text-lg text-zinc-400 font-sans font-normal mt-1.5 leading-relaxed">
+                  {titleHindi}
+                </p>
+              )}
+            </div>
           </div>
           {description && (
             <CardDescription className="text-zinc-400 text-sm font-light pl-9 leading-relaxed">

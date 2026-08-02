@@ -523,6 +523,7 @@ export default function AuditWizardPage() {
 
           <QuestionCard
             title={currentQuestion.text}
+            titleHindi={currentQuestion.textHindi}
             description={currentQuestion.description}
             helperText={currentQuestion.helperText}
             variant="glass"
@@ -533,6 +534,7 @@ export default function AuditWizardPage() {
                   key={i}
                   selected={answers[currentQuestion.id] === opt.label}
                   title={opt.label}
+                  titleHindi={opt.labelHindi}
                   description={opt.description}
                   onClick={() => handleSelectOption(opt.label)}
                 />
