@@ -34,6 +34,7 @@ export default function Report() {
       "idle",
     );
   const [receipt, setReceipt] = useState("");
+  const [deliveryStorage, setDeliveryStorage] = useState("");
   const [errorReference, setErrorReference] = useState("");
   useEffect(() => {
     try {
@@ -51,6 +52,9 @@ export default function Report() {
               typeof saved.receiptId === "string"
             ) {
               setReceipt(saved.receiptId);
+              setDeliveryStorage(
+                typeof saved.storage === "string" ? saved.storage : "",
+              );
               setStatus("saved");
             }
           } catch {
@@ -107,11 +111,16 @@ export default function Report() {
       }
       const receiptId = data.receiptId || session.submissionId;
       setReceipt(receiptId);
+      setDeliveryStorage(
+        data.storage === "primary" || data.storage === "backup"
+          ? data.storage
+          : "",
+      );
       setStatus("saved");
       try {
         sessionStorage.setItem(
           "cnm_public_enquiry_receipt_v1",
-          JSON.stringify({ submissionId: session.submissionId, receiptId }),
+          JSON.stringify({ submissionId: session.submissionId, receiptId, storage: data.storage }),
         );
       } catch {
         /* Server acknowledgement remains valid if browser storage is unavailable. */
@@ -130,6 +139,7 @@ export default function Report() {
     setConsent(false);
     setStatus("idle");
     setReceipt("");
+    setDeliveryStorage("");
     setErrorReference("");
   }
   if (!loaded) return <p role="status">Loading your summary…</p>;
@@ -245,7 +255,11 @@ export default function Report() {
           delivery terms must be agreed separately.
         </p>
         {status === "saved" ? (
-          <div role="status" className="audit-paper">
+          <div
+            role="status"
+            className="audit-paper"
+            data-delivery-storage={deliveryStorage}
+          >
             <h3>Your enquiry was received.</h3>
             <p>
               Enquiry reference: <strong>{receipt}</strong>
