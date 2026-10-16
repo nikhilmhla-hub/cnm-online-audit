@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { questions } from "@/data/questions";
@@ -13,6 +13,11 @@ export default function Audit() {
     [answers, setAnswers] = useState<Record<string, string>>({}),
     [error, setError] = useState("");
   const question = questions[index];
+  const headingRef = useRef<HTMLHeadingElement>(null);
+  useEffect(() => {
+    headingRef.current?.focus({ preventScroll: true });
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [stage, index]);
   const finish = () => {
     try {
       const result = generateAuditSession(
@@ -53,7 +58,9 @@ export default function Audit() {
       {stage === 0 ? (
         <>
           <span className="audit-kicker">START WITH YOUR CONTEXT</span>
-          <h1>Which class are you in?</h1>
+          <h1 ref={headingRef} tabIndex={-1}>
+            Which class are you in?
+          </h1>
           <p>Choose your current preparation track.</p>
           <div
             className="audit-options"
@@ -81,7 +88,9 @@ export default function Audit() {
       ) : stage === 1 ? (
         <>
           <span className="audit-kicker">YOUR PREPARATION</span>
-          <h1>Which exam are you preparing for?</h1>
+          <h1 ref={headingRef} tabIndex={-1}>
+            Which exam are you preparing for?
+          </h1>
           <div
             className="audit-options"
             role="group"
@@ -120,7 +129,9 @@ export default function Audit() {
           <span className="audit-kicker">
             {question.category.toUpperCase()}
           </span>
-          <h1 className="audit-question">{question.text}</h1>
+          <h1 ref={headingRef} tabIndex={-1} className="audit-question">
+            {question.text}
+          </h1>
           {question.textHindi && (
             <p lang="hi" className="audit-hindi">
               {question.textHindi}
