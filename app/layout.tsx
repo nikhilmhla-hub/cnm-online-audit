@@ -1,78 +1,61 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Noto_Sans_Devanagari } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
-import { GoogleTagManager } from "@next/third-parties/google";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const notoDevanagari = Noto_Sans_Devanagari({
+const sans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const mono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const hindi = Noto_Sans_Devanagari({
   variable: "--font-noto-devanagari",
   subsets: ["devanagari"],
   weight: ["400", "500", "600", "700"],
 });
-
 export const metadata: Metadata = {
-  title: "CNM Kiosk Audit",
-  description: "Touch-friendly iPad kiosk auditing tool with scoring metrics.",
+  title: "Performance Audit | CNM System Labs",
+  description:
+    "A free 20-question preparation self-review for JEE and NEET. Understand your answers, choose a practical next step and decide whether to contact CNM.",
+  robots: { index: false, follow: true },
 };
-
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${notoDevanagari.variable} h-full antialiased dark`}
+      className={`${sans.variable} ${mono.variable} ${hindi.variable} dark`}
     >
-      <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID || "GTM-M3FCWDVW"} />
-      <body className="min-h-screen bg-background text-foreground flex flex-col selection:bg-gold selection:text-black">
-        {/* Minimal Header */}
-        <header className="border-b border-border bg-[#0B0B0B]/80 backdrop-blur-md sticky top-0 z-50">
-          <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-3 group">
-              {/* Brand Logo / Mark */}
-              <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-gold to-[#B38F1E] flex items-center justify-center font-bold text-black text-lg shadow-lg shadow-gold/10 group-hover:scale-105 transition-transform duration-300">
-                C
-              </div>
-              <div className="flex flex-col">
-                <span className="font-bold tracking-wider text-white text-lg font-sans">
-                  CNM <span className="text-gold">KIOSK</span> AUDIT
-                </span>
-                <span className="text-[10px] uppercase tracking-widest text-zinc-500 font-mono">
-                  Operational Excellence
-                </span>
-              </div>
-            </Link>
-
-            {/* Quick Status / Environment Indicator for Kiosk */}
-            <div className="flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-xs font-mono text-zinc-400 uppercase tracking-wider">
-                Kiosk Mode Active
-              </span>
-            </div>
-          </div>
+      <body>
+        <a className="audit-skip" href="#main-content">
+          Skip to content
+        </a>
+        <header className="audit-header">
+          <a
+            href="https://cnm-learning-website.vercel.app/"
+            aria-label="CNM System Labs home"
+          >
+            <span className="audit-logo">CNM</span>
+            <span>
+              SYSTEM <b>LABS</b>
+            </span>
+          </a>
+          <a href="https://cnm-learning-website.vercel.app/programmes">
+            Programmes & fees →
+          </a>
         </header>
-
-        {/* Centered Main Content Area */}
-        <main className="flex-1 flex flex-col justify-center items-center p-6 md:p-12 w-full max-w-6xl mx-auto">
+        <main id="main-content" className="audit-main">
           {children}
         </main>
-
-        {/* Minimal Footer */}
-        <footer className="border-t border-border/40 py-6 text-center text-xs text-zinc-600 font-mono">
-          CNM Student OS © {new Date().getFullYear()} • Kiosk System Foundation
+        <footer className="audit-footer">
+          <span>CNM SYSTEM LABS · JEE & NEET</span>
+          <nav aria-label="Audit footer">
+            <a href="https://cnm-learning-website.vercel.app/contact">
+              Contact CNM
+            </a>
+            <a href="https://cnm-learning-website.vercel.app/privacy-policy">
+              Privacy policy
+            </a>
+            <a href="https://cnm-learning-website.vercel.app/parents">
+              For parents
+            </a>
+          </nav>
         </footer>
       </body>
     </html>
