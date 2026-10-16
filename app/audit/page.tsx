@@ -14,7 +14,12 @@ export default function Audit() {
     [error, setError] = useState("");
   const question = questions[index];
   const headingRef = useRef<HTMLHeadingElement>(null);
+  const hasRendered = useRef(false);
   useEffect(() => {
+    if (!hasRendered.current) {
+      hasRendered.current = true;
+      return;
+    }
     headingRef.current?.focus({ preventScroll: true });
     window.scrollTo({ top: 0, behavior: "instant" });
   }, [stage, index]);
