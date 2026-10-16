@@ -481,3 +481,5 @@ input:focus-visible {
     background: #eee !important;
   }
 }
+
+.audit-error strong, .audit-paper strong { overflow-wrap: anywhere; }
