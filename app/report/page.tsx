@@ -33,13 +33,34 @@ export default function Report() {
     [status, setStatus] = useState<"idle" | "saving" | "saved" | "error">(
       "idle",
     );
+  const [receipt, setReceipt] = useState("");
+  const [deliveryStorage, setDeliveryStorage] = useState("");
+  const [errorReference, setErrorReference] = useState("");
   useEffect(() => {
     try {
       const raw = sessionStorage.getItem("cnm_public_audit_v1");
       if (raw) {
         const parsed = JSON.parse(raw) as StudentSession;
-        if (parsed.metrics && parsed.answers && parsed.student)
+        if (parsed.metrics && parsed.answers && parsed.student) {
           setSession(parsed);
+          try {
+            const saved = JSON.parse(
+              sessionStorage.getItem("cnm_public_enquiry_receipt_v1") || "null",
+            );
+            if (
+              saved?.submissionId === parsed.submissionId &&
+              typeof saved.receiptId === "string"
+            ) {
+              setReceipt(saved.receiptId);
+              setDeliveryStorage(
+                typeof saved.storage === "string" ? saved.storage : "",
+              );
+              setStatus("saved");
+            }
+          } catch {
+            /* A receipt cache is optional; it cannot invalidate the audit. */
+          }
+        }
       }
     } catch {
       /* Display the recovery route below. */
@@ -51,10 +72,12 @@ export default function Report() {
     if (!session || !consent || status === "saving" || status === "saved")
       return;
     setStatus("saving");
+    setErrorReference("");
     try {
       const response = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        signal: AbortSignal.timeout(25000),
         body: JSON.stringify({
           submissionId: session.submissionId,
           source: "Website Audit",
@@ -78,19 +101,46 @@ export default function Report() {
         }),
       });
       const data = await response.json();
-      if (!response.ok || data.status !== "success") throw Error("Not saved");
+      if (!response.ok || data.status !== "success") {
+        setErrorReference(
+          typeof data.reference === "string"
+            ? data.reference
+            : session.submissionId,
+        );
+        throw Error("Not confirmed");
+      }
+      const receiptId = data.receiptId || session.submissionId;
+      setReceipt(receiptId);
+      setDeliveryStorage(
+        data.storage === "primary" || data.storage === "backup"
+          ? data.storage
+          : "",
+      );
       setStatus("saved");
+      try {
+        sessionStorage.setItem(
+          "cnm_public_enquiry_receipt_v1",
+          JSON.stringify({ submissionId: session.submissionId, receiptId, storage: data.storage }),
+        );
+      } catch {
+        /* Server acknowledgement remains valid if browser storage is unavailable. */
+      }
     } catch {
+      setErrorReference((reference) => reference || session.submissionId);
       setStatus("error");
     }
   }
   function clear() {
     sessionStorage.removeItem("cnm_public_audit_v1");
+    sessionStorage.removeItem("cnm_public_enquiry_receipt_v1");
     setSession(null);
     setName("");
     setPhone("");
     setConsent(false);
     setStatus("idle");
+    setReceipt("");
+    setDeliveryStorage("");
+    setErrorReference("");
   }
   if (!loaded) return <p role="status">Loading your summary…</p>;
   if (!session)
@@ -205,8 +255,15 @@ export default function Report() {
           delivery terms must be agreed separately.
         </p>
         {status === "saved" ? (
-          <div role="status" className="audit-paper">
+          <div
+            role="status"
+            className="audit-paper"
+            data-delivery-storage={deliveryStorage}
+          >
             <h3>Your enquiry was received.</h3>
+            <p>
+              Enquiry reference: <strong>{receipt}</strong>
+            </p>
             <p>
               No appointment has been reserved. If you need to follow up, call{" "}
               <a href="tel:+916377525604">+91 6377525604</a> or email{" "}
@@ -262,8 +319,9 @@ export default function Report() {
             </button>
             {status === "error" && (
               <p role="alert" className="audit-error">
-                We could not confirm that your enquiry was saved. You can retry
-                or contact CNM directly at{" "}
+                We could not confirm that your enquiry was saved. No callback is
+                confirmed. Keep reference <strong>{errorReference}</strong> and
+                contact CNM directly at{" "}
                 <a href="tel:+916377525604">+91 6377525604</a>. Your summary is
                 still available.
               </p>
